@@ -1,4 +1,4 @@
-# AI Writer Copilot
+# WriteVerse AI
 
 A production-architected, RAG-powered AI writing assistant for stories, novels, blogs, and scripts — GitHub Copilot for writers.
 
@@ -39,12 +39,6 @@ npm run dev              # http://localhost:5173
 - Post-generation consistency checker (flags dead/gone characters reappearing)
 - Prompt templates fully separated from business logic (`backend/src/ai/prompts/templates/`)
 - Rate limiting (general + stricter AI-endpoint limits), Helmet, CORS, Mongo sanitization, centralized error handling, Winston logging, PromptHistory cost/latency tracking
-
-## Deployment
-
-- **Frontend** → Vercel (`vercel.json` not included by default; Vite's default build output in `dist/` deploys as-is)
-- **Backend** → Render (Node web service; ensure `FAISS_STORAGE_DIR` points to a persistent disk if you want the vector index to survive restarts — Render's free tier has an ephemeral filesystem, so for production use a managed vector DB instead, per the swap-in notes in `faissStore.service.js`)
-- **Database** → MongoDB Atlas
 
 ## Folder Structure
 
