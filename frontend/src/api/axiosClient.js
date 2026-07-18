@@ -28,8 +28,9 @@ axiosClient.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
+    const isAuthRequest = /\/auth\/(login|register|refresh)/.test(originalRequest?.url || '');
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isAuthRequest && accessToken) {
       originalRequest._retry = true;
 
       if (isRefreshing) {

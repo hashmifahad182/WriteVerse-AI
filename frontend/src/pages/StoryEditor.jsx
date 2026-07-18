@@ -69,7 +69,7 @@ export default function StoryEditor() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-surface">
+      <div className="flex items-center justify-center h-screen bg-surface">
         <Loader label="Loading story..." />
       </div>
     );
@@ -78,15 +78,15 @@ export default function StoryEditor() {
   return (
     <div className="flex h-screen bg-surface">
       {/* Sidebar */}
-      <aside className="flex w-64 shrink-0 flex-col border-r border-surface-border">
-        <div className="border-b border-surface-border p-4">
+      <aside className="flex flex-col w-64 border-r shrink-0 border-surface-border">
+        <div className="p-4 border-b border-surface-border">
           <Link to="/" className="text-xs text-text-muted hover:text-text-secondary">
             ← All Projects
           </Link>
-          <h2 className="mt-1 truncate font-serif text-lg font-semibold text-text-primary">
+          <h2 className="mt-1 font-serif text-lg font-semibold truncate text-text-primary">
             {story.title}
           </h2>
-          <div className="mt-2 flex gap-2">
+          <div className="flex gap-2 mt-2">
             <Link to={`/stories/${storyId}/timeline`} className="text-xs text-accent hover:underline">
               Timeline
             </Link>
@@ -96,7 +96,7 @@ export default function StoryEditor() {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-2">
+        <div className="flex-1 p-2 overflow-y-auto">
           {chapters.map((chapter) => (
             <button
               key={chapter._id}
@@ -112,7 +112,7 @@ export default function StoryEditor() {
           ))}
         </div>
 
-        <div className="space-y-2 border-t border-surface-border p-3">
+        <div className="p-3 space-y-2 border-t border-surface-border">
           <Button variant="secondary" className="w-full" onClick={handleNewChapter}>
             + Blank Chapter
           </Button>
@@ -123,10 +123,10 @@ export default function StoryEditor() {
       </aside>
 
       {/* Main editor area */}
-      <main className="flex flex-1 flex-col p-6">
+      <main className="flex flex-col flex-1 p-6">
         {activeChapter ? (
           <>
-            <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center justify-between mb-3">
               <h3 className="font-serif text-xl text-text-primary">{activeChapter.title}</h3>
               <AutoSaveIndicator status={saveStatus} />
             </div>
@@ -141,7 +141,7 @@ export default function StoryEditor() {
             </div>
           </>
         ) : (
-          <div className="flex flex-1 items-center justify-center text-text-muted">
+          <div className="flex items-center justify-center flex-1 text-text-muted">
             No chapters yet. Create one to start writing.
           </div>
         )}

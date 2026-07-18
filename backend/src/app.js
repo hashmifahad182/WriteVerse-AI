@@ -18,10 +18,19 @@ const app = express();
 // Security headers
 app.use(helmet());
 
-// CORS — restricted to the configured frontend origin, credentials allowed for refresh-token cookie
+const allowedOrigins = [CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'];
+
+// CORS — allow the configured frontend origin plus common local dev origins
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(null, false);
+    },
     credentials: true,
   })
 );
