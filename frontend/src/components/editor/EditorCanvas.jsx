@@ -16,11 +16,15 @@ export default function EditorCanvas({ storyId, chapterId, content, onChange }) 
   const { run, loading } = useAIAction(storyId);
 
   useEffect(() => {
-    if (editorRef.current && editorRef.current.innerHTML !== content) {
-      editorRef.current.innerHTML = content || '';
+    // Only update editor if content has actually changed
+    // to avoid clearing when switching to a chapter
+    if (editorRef.current) {
+      const currentContent = content || '';
+      if (editorRef.current.innerHTML !== currentContent) {
+        editorRef.current.innerHTML = currentContent;
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chapterId]);
+  }, [chapterId, content]);
 
   const handleInput = useCallback(() => {
     onChange(editorRef.current.innerHTML);

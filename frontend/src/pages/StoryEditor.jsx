@@ -19,7 +19,14 @@ export default function StoryEditor() {
   const [genModalOpen, setGenModalOpen] = useState(false);
 
   const activeChapter = chapters.find((c) => c._id === activeChapterId);
-  const saveStatus = useAutoSave(storyId, activeChapterId, content);
+  
+  const handleChapterSaved = useCallback((updatedChapter) => {
+    setChapters((prev) =>
+      prev.map((ch) => (ch._id === updatedChapter._id ? updatedChapter : ch))
+    );
+  }, []);
+  
+  const saveStatus = useAutoSave(storyId, activeChapterId, content, handleChapterSaved);
 
   useEffect(() => {
     async function load() {
@@ -125,6 +132,7 @@ export default function StoryEditor() {
             </div>
             <div className="flex-1">
               <EditorCanvas
+                key={activeChapterId}
                 storyId={storyId}
                 chapterId={activeChapterId}
                 content={content}
